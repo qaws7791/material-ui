@@ -54,10 +54,15 @@ export default function useMenu(parameters: UseMenuParameters = {}): UseMenuRetu
 
   const [menuItems, setMenuItems] = React.useState<Record<string, MenuItemMetadata>>({});
 
+  React.useEffect(() => {
+    console.log(menuItems)
+  },[menuItems])
+
   const listboxRef = React.useRef<HTMLElement | null>(null);
   const handleRef = useForkRef(listboxRef, listboxRefProp);
 
   const registerItem = React.useCallback((id: string, metadata: MenuItemMetadata) => {
+    console.log("register",id)
     setMenuItems((previousState) => {
       const newState = { ...previousState };
       newState[id] = metadata;
@@ -66,6 +71,7 @@ export default function useMenu(parameters: UseMenuParameters = {}): UseMenuRetu
   }, []);
 
   const unregisterItem = React.useCallback((id: string) => {
+    console.log("unregister",id)
     setMenuItems((previousState) => {
       const newState = { ...previousState };
       delete newState[id];
